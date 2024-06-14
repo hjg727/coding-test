@@ -1,0 +1,27 @@
+	# -*- coding: utf-8 -*-
+	# UTF-8 encoding when using korean
+from sys import stdin
+
+readline = stdin.readline
+
+
+if __name__ == '__main__':
+	N, M = map(int, readline().split())
+	homes = list(map(int, readline().split()))
+	
+	prevRain = set()
+	
+	for day in range(1, M + 1):
+		s, e = map(int, readline().split())
+		
+		for i in range(s - 1, e):
+			homes[i] += 1
+			prevRain.add(i)
+			
+		if day % 3 == 0:
+			for i in prevRain:
+				homes[i] -= 1
+			
+			prevRain.clear()
+	
+	print(' '.join(map(str, homes)))
