@@ -1,12 +1,8 @@
 small = [int(input()) for _ in range(9)]
 
 total = sum(small)
-find = False
 
 for i in range(9):
-    if find:
-        break
-    
     for j in range(i+1, 9):
         if total - small[i] - small[j] == 100:
             tall_1 = small[i]
