@@ -1,21 +1,22 @@
-nan = [int(input()) for _ in range(9)]
+small = [int(input()) for _ in range(9)]
 
-total = sum(nan)
-found = False
+total = sum(small)
+find = False
 
 for i in range(9):
-    if found:
+    if find:
         break
+    
     for j in range(i+1, 9):
-        if total - nan[i] - nan[j] == 100:
-            liar_1 = nan[i]
-            liar_2 = nan[j]
-            found = True
+        if total - small[i] - small[j] == 100:
+            tall_1 = small[i]
+            tall_2 = small[j]
             break
+    
+small.remove(tall_1)
+small.remove(tall_2)
 
-nan.remove(liar_1)
-nan.remove(liar_2)
-nan.sort()
+small.sort()
 
-for nan in nan:
-    print(nan)
+for small in small:
+    print(small)
