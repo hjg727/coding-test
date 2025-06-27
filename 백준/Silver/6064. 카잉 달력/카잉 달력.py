@@ -1,17 +1,17 @@
+import math
 
-T = int(input())
-ans = []
-for _ in range(T):
+for _ in range(int(input())):
     M, N, x, y = map(int, input().split())
+    years = 1
     tmp = 0
-    year = x
-    while year <= M * N:
-        if (year - 1) % N + 1 == y:
-            tmp = 1
-            break
-        year += M
-    
-    ans.append(year if tmp else -1)
 
-for i in ans:
-    print(i)
+    max_year = math.lcm(M, N)
+    answer = x
+    while answer <= max_year:
+        if (answer - 1) % N + 1 == y:
+            break
+        answer += M
+    if answer > max_year:
+        print(-1)
+    else:
+        print(answer)
