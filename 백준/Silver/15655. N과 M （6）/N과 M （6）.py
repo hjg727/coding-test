@@ -5,8 +5,6 @@ def bt(start, path):
     if len(path) == M:
         res.append(path[:])
         return
-    if start >= len(num):
-        return
     
     for i in range(start, len(num)):
         # if i not in path:
