@@ -8,17 +8,12 @@ for _ in range(N):
     day.append(a)
     money.append(b)
 
-res = -1
-def bt(cnt, hap):
-    global res
-    if cnt > N:
-        res = max(res, hap)
-        return
-    #안한다.
-    bt(cnt+1, hap)
+dp = [0]*(N+2)
 
-    #한다.
-    if cnt + day[cnt] <= N+1:
-        bt(cnt+day[cnt], hap+money[cnt])
-bt(1, 0)
-print(res)
+for i in range(N, 0, -1):
+
+    if i + day[i] <= N+1:
+        dp[i] = max(dp[i+1], money[i] + dp[i + day[i]])
+    else:
+        dp[i] = dp[i+1]
+print(dp[1])
