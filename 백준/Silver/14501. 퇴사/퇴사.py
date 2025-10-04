@@ -1,16 +1,24 @@
 N = int(input())
-day = [0] * (N+1)
-money = [0] * (N+1)
 
-for i in range(N):
-    day[i], money[i] = map(int, input().split())
+day = [0]
+money = [0]
 
-dp = [0] * (N+1)
+for _ in range(N):
+    a, b = map(int, input().split())
+    day.append(a)
+    money.append(b)
 
-for i in range(N-1, -1, -1):
-    if day[i] + i > N: #상담이 퇴사 날짜 넘어가면 상담을 할 수 없다
-        dp[i] = dp[i+1]#맨끝날값그앞에다가 업데이트
-    else:
-        dp[i] = max(money[i] + dp[i+day[i]], dp[i+1])#상담on,상담x
+res = -1
+def bt(cnt, hap):
+    global res
+    if cnt > N:
+        res = max(res, hap)
+        return
+    #안한다.
+    bt(cnt+1, hap)
 
-print(dp[0])
+    #한다.
+    if cnt + day[cnt] <= N+1:
+        bt(cnt+day[cnt], hap+money[cnt])
+bt(1, 0)
+print(res)
