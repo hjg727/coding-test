@@ -17,9 +17,8 @@ def dfs(node):
 
     for i in computers[node]:
         if not visited[i]:
-            if node in computers[i]:
-                dfs(i)
-                res += 1
+            dfs(i)
+            res += 1
 dfs(0)
 
 print(res)
