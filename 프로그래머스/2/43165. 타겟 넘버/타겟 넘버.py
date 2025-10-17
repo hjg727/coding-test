@@ -1,13 +1,18 @@
-import sys
-sys.setrecursionlimit(10**6)
-
+from collections import deque
 def solution(numbers, target):
-    def dfs(numbers, target, index, current):
-        if len(numbers) == index:
-            if target == current:
-                return 1
+    def bfs(numbers, target):
+        queue = deque([(0,0)])
+        cnt = 0
+
+        while queue:
+            idx, current = queue.popleft()
+
+            if idx == len(numbers):
+                if current == target:
+                    cnt += 1
+
             else:
-                return 0
-        
-        return dfs(numbers, target, index+1, current+numbers[index]) + dfs(numbers, target, index+1, current-numbers[index])
-    return dfs(numbers, target, 0, 0)
+                queue.append((idx+1, current+numbers[idx]))
+                queue.append((idx+1, current-numbers[idx]))
+        return cnt
+    return bfs(numbers, target)
