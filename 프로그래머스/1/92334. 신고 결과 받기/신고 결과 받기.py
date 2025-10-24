@@ -1,21 +1,17 @@
 from collections import defaultdict
 
 def solution(id_list, report, k):
-    lst = defaultdict(list)
-    ids = {name: 0 for name in id_list}
-    
-    for report in report:
-        user, target = report.split()
-        if user not in lst[target]:
-            lst[target].append(user)
-        
-    for target in lst.keys():
-        if len(lst[target]) >= k:
-            for user in lst[target]:
-                ids[user] += 1
-    answer = []
-    for id in ids:
-        answer.append(ids[id])
-    return answer
-    
-    
+
+    report = set(report)
+    reported_by = defaultdict(set)
+    mail_cnt = {name: 0 for name in id_list}
+
+    for r in report:
+        user, target = r.split()
+        reported_by[target].add(user)
+
+    for target, reporters in reported_by.items():
+        if len(reporters) >= k:
+            for user in reporters:
+                mail_cnt[user] += 1
+    return [mail_cnt[id] for id in id_list]
