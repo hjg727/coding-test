@@ -8,7 +8,7 @@ int main() {
 
     for(int i = 0; i<n; i++){
         cin>>input;
-        
+        stack<char> stk;
         for(char a : input){
             if(stk.empty()){
                 stk.push(a);
@@ -19,7 +19,6 @@ int main() {
             }
         }
         if(stk.empty()) res++;
-        else stk = stack<char>();
     }
     cout << res;
     return 0;
