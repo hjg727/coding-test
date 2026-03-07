@@ -8,8 +8,9 @@ int dfs(int node, int tg){
 
     int cnt = 0;
     for(int child : adj[node]){
-        if(child != tg) cnt += dfs(child, tg);
+        cnt += dfs(child, tg);
     }
+
     if(cnt == 0) return 1;
     return cnt;
 }
@@ -24,11 +25,12 @@ int main() {
     }
     int tg;
     cin >> tg;
-    if(root == tg) {
+
+    if(tg == root){
         cout << 0 << '\n';
         return 0;
     }
     int cnt = dfs(root, tg);
+
     cout << cnt << '\n';
-    return 0;
 }
