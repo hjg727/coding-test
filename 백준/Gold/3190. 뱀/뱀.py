@@ -1,60 +1,56 @@
 from collections import deque
+N = int(input())
+k = int(input())
+sn = deque([(0,0)])
+field = [[0]*N for _ in range(N)]
+for _ in range(k):
+    y, x = map(int, input().split())
+    field[y-1][x-1] = 2
 
-def turn_left(d):
-    return (d+3) % 4
+L = int(input()) 
+cmd = deque([])
 
-def turn_right(d):
-    return (d+1) % 4
-
-
-N = int(input())#N*N크기 map
-
-field = [[0]*(N+1) for _ in range(N+1)]
-
-K = int(input())
-
-for _ in range(K):
-    a, b = map(int, input().split())
-    field[a][b] = 2#사과 위치 업데이트
-
-L = int(input())
-
-command = []
-
-for _ in range(L):#command
+for _ in range(L):
     X, C = input().split()
-    command.append((int(X), C))
+    cmd.append((int(X), C))
 
-snake=deque([(1,1)])
-
-dx = [-1, 0, 1, 0]
+def left(d):
+    return (d+3)%4
+def right(d):
+    return (d+1)%4
+d = 0
+t = 0
 dy = [0, 1, 0, -1]
+dx = [1, 0, -1, 0]
 
-time = 0
-direct = 1
-
+sn_set = {(0,0)}
 while True:
-    x, y = snake[0]
-    nx = x + dx[direct]
-    ny = y + dy[direct]
+    ny = sn[0][0]+dy[d]
+    nx = sn[0][1]+dx[d]
+        
+    t+=1
 
-    if 0<nx<=N and 0<ny<=N and not (nx, ny) in snake:
-        if field[nx][ny] == 2:
-            snake.appendleft((nx,ny))
-            field[nx][ny] = 0
-        else:
-            snake.appendleft((nx,ny))
-            snake.pop()
-    else:
+    if ny < 0 or N <=ny or nx < 0 or N<=nx:
+        break
+    if (ny, nx) in sn_set:
         break
     
-    time += 1
+    if field[ny][nx] == 2:
+        sn.appendleft((ny,nx))
+        sn_set.add((ny,nx))
+        field[ny][nx] = 0
+    else:
+        sn.appendleft((ny,nx))
+        sn_set.add((ny,nx))
+        tail = sn.pop()
+        sn_set.remove(tail)
 
-    if command and time == command[0][0]:
-        command_time, direction = command.pop(0)
-        if direction == 'L':
-            direct = turn_left(direct)
+
+    if cmd and cmd[0][0] == t:
+        if cmd[0][1] == 'L':
+            d = left(d)
         else:
-            direct = turn_right(direct)
+            d = right(d)
+        cmd.popleft()
 
-print(time+1)
+print(t)
